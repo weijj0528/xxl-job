@@ -31,13 +31,13 @@
 
 	<repositories>
 		<repository>
-			<id>maven3</id>
-			<name>maven3</name>
-			<url>http://192.168.1.131:8081/repository/maven-releases/</url>
+			<id>maven-releases</id>
+			<name>maven-releases</name>
+			<url>http://lovejiayuan.cn:8081/repository/maven-releases/</url>
 		</repository>
 		<repository>
-			<id>maven4</id>
-			<name>maven4</name>
+			<id>nexus</id>
+			<name>nexus</name>
 			<url>https://artifacts.alfresco.com/nexus/content/repositories/public/</url>
 		</repository>
 	</repositories>
@@ -64,97 +64,32 @@
 			<version>${project.parent.version}</version>
 		</dependency>
 
-		<!--WMS -->
+		<!-- 业务依赖 -->
 		<dependency>
-			<groupId>com.ycmm</groupId>
+			<groupId>com.william</groupId>
+			<artifactId>distributed.core</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.kuaidilaiye</groupId>
+			<artifactId>kuaidilaiye.server.user</artifactId>
+			<version>1.0</version>
 			<classifier>dubbo</classifier>
-			<artifactId>biz-wms</artifactId>
-			<version>1.0</version>
 		</dependency>
-		<!--客服 数据模块 -->
 		<dependency>
-			<groupId>com.ycmm</groupId>
-			<classifier>dubbo</classifier>
-			<artifactId>biz-data</artifactId>
-			<version>1.0</version>
+			<groupId>com.qiniu</groupId>
+			<artifactId>qiniu-java-sdk</artifactId>
+			<version>[7.2.0, 7.2.99]</version>
 		</dependency>
-		<!--国外 国际化模块 -->
 		<dependency>
-			<groupId>com.ycmm</groupId>
-			<classifier>dubbo</classifier>
-			<artifactId>biz-abroad</artifactId>
-			<version>1.0</version>
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<version>RELEASE</version>
 		</dependency>
-		<!-- 支付模块 -->
 		<dependency>
-			<groupId>com.ycmm</groupId>
-			<classifier>dubbo</classifier>
-			<artifactId>biz-pay</artifactId>
-			<version>1.0</version>
-		</dependency>
-		<!-- 订单模块 -->
-		<dependency>
-			<groupId>com.ycmm</groupId>
-			<classifier>dubbo</classifier>
-			<artifactId>biz-order</artifactId>
-			<version>1.0</version>
-		</dependency>
-		<!-- 意向资源模块 -->
-		<dependency>
-			<groupId>com.ycmm</groupId>
-			<classifier>dubbo</classifier>
-			<artifactId>biz-intention</artifactId>
-			<version>1.0</version>
-		</dependency>
-		<!-- 搜索 检索 分词 -->
-		<dependency>
-			<groupId>com.ycmm</groupId>
-			<classifier>dubbo</classifier>
-			<artifactId>biz-search</artifactId>
-			<version>1.0</version>
-		</dependency>
-
-		<!-- 短信发送 push -->
-		<dependency>
-			<groupId>com.ycmm</groupId>
-			<classifier>dubbo</classifier>
-			<artifactId>biz-push</artifactId>
-			<version>1.0</version>
-		</dependency>
-
-		<!-- 业务模块 用户模块 jar -->
-		<dependency>
-			<groupId>com.ycmm</groupId>
-			<classifier>dubbo</classifier>
-			<artifactId>biz-user</artifactId>
-			<version>1.0</version>
-		</dependency>
-
-		<!-- 平安支付 -->
-		<dependency>
-			<groupId>emp</groupId>
-			<artifactId>emp</artifactId>
-			<version>1.0</version>
-		</dependency>
-
-		<!-- 平安支付 -->
-		<dependency>
-			<groupId>payclient</groupId>
-			<artifactId>payclient</artifactId>
-			<version>1.0</version>
-		</dependency>
-
-		<!-- 前置基础 bean -->
-		<dependency>
-			<groupId>com.ycmm</groupId>
-			<artifactId>front-base</artifactId>
-			<version>1.0</version>
-		</dependency>
-		<!-- 蓝金灵JAR -->
-		<dependency>
-			<groupId>com.xiduoduo</groupId>
-			<artifactId>Ljlpay</artifactId>
-			<version>${env}</version>
+			<groupId>com.jfinal</groupId>
+			<artifactId>jfinal-weixin</artifactId>
+			<version>1.9</version>
 		</dependency>
 	</dependencies>
 

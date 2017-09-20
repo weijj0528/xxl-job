@@ -1,187 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd
-        http://www.springframework.org/schema/context
-        http://www.springframework.org/schema/context/spring-context-2.5.xsd
         http://code.alibabatech.com/schema/dubbo
-        http://code.alibabatech.com/schema/dubbo/dubbo.xsd
-        ">
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
 
-    <!-- 提供方应用信息，用于计算依赖关系 -->
-    <dubbo:application name="${dubbox.name}"/>
-    <!-- 使用multicast广播注册中心暴露服务地址 -->
-    <dubbo:registry protocol="zookeeper" address="${dubbox.address}" file="./.dubbox/${dubbox.name}/dubbox.cache"/>
-    <!-- 用dubbo协议在 指定端口暴露服务 -->
-    <dubbo:protocol name="dubbo" serialization="kryo" port="${dubbox.port}" payload="16777216"/>
+	<!-- 提供方应用信息，用于计算依赖关系 -->
+	<dubbo:application name="${dubbox.name}"/>
+	<!-- 使用multicast广播注册中心暴露服务地址 -->
+	<dubbo:registry protocol="zookeeper" address="${dubbox.address}" file="./.dubbox/${dubbox.name}/dubbox.cache"/>
+	<!-- 不使用  rest 使用 dubbo 默认协议  -->
+	<!-- 服务提供者协议配置	协议名称/协议序列化方式/服务端口/协议的服务器端实现类型  server="tomcat" /服务提供方最大可接受连接数/服务根路径名   -->
+	<dubbo:protocol name="dubbo" serialization="kryo" port="${dubbox.port}" threads="512" accepts="768"/>
+	<!-- 负载均衡策略roundrobin-->
+	<dubbo:provider loadbalance="roundrobin"/>
 
-    <!-- 服务消费者引用服务配置   服务版本，与服务提供者的版本一致   | 启动时检查提供者是否存在，true报错，false忽略 | 服务方法调用超时时间(毫秒) | 远程服务调用重试次数，不包括第一次调用，不需要重试请设为0   -->
-    <!-- 用户模块 -->
-    <dubbo:reference id="userService" interface="com.ycmm.business.user.service.UserService"
-                     version="1.0" check="false" retries="0"/>
-    <dubbo:reference id="userSmsService" interface="com.ycmm.business.user.service.UserSmsService"
-                     version="1.0" check="false" retries="0"/>
-    <dubbo:reference id="userSuggestService" interface="com.ycmm.business.user.service.UserSuggestService"
-                     version="1.0" check="false" retries="0"/>
-    <dubbo:reference id="userAddressService" interface="com.ycmm.business.user.service.UserAddressService"
-                     version="1.0" check="false" retries="0"/>
-    <dubbo:reference id="userSignLoginService" interface="com.ycmm.business.user.service.UserSignLoginService"
-                     version="1.0" check="false" retries="0"/>
-    <dubbo:reference id="employService" interface="com.ycmm.business.user.service.EmployService"
-                     version="1.0" check="false" retries="0"/>
-    <dubbo:reference id="erpUserService" interface="com.ycmm.business.user.erp.ErpUserService"
-                     version="1.0" check="false" retries="0"/>
-    <dubbo:reference id="erpTrackingService" interface="com.ycmm.business.user.erp.ErpTrackingService"
-                     version="1.0" check="false" retries="0"/>
-    <dubbo:reference id="erpCustomerService" interface="com.ycmm.business.user.erp.ErpCustomerService"
-                     version="1.0" check="false" retries="0"/>
-    <dubbo:reference id="erpCustomerLjlCreditService" interface="com.ycmm.business.user.erp.ErpCustomerLjlCreditService"
-                     version="1.0" check="false" retries="0"/>
-    <dubbo:reference id="erpCustomerRemarkService" interface="com.ycmm.business.user.erp.ErpCustomerRemarkService"
-                     version="1.0" check="false" retries="0"/>
-    <dubbo:reference id="erpCustomerProductService" interface="com.ycmm.business.user.erp.ErpCustomerProductService"
-                     version="1.0" check="false" retries="0"/>
-    <dubbo:reference id="erpCustomerLabelService" interface="com.ycmm.business.user.erp.ErpCustomerLabelService"
-                     version="1.0" check="false" retries="0"/>
-    <dubbo:reference id="erpCustomerContactService" interface="com.ycmm.business.user.erp.ErpCustomerContactService"
-                     version="1.0" check="false" retries="0"/>
-    <dubbo:reference id="erpSupplierService" interface="com.ycmm.business.user.erp.ErpSupplierService"
-                     version="1.0" check="false" retries="0"/>
-    <dubbo:reference id="erpCustomerAuditService" interface="com.ycmm.business.user.erp.ErpCustomerAuditService"
-                     version="1.0" check="false" retries="0"/>
-    <dubbo:reference id="orgService" interface="com.ycmm.business.user.service.OrgService"
-                     version="1.0" check="false" retries="0"/>
-    <dubbo:reference id="systemService" interface="com.ycmm.business.user.service.SystemService"
-                     version="1.0" check="false" retries="0"/>
-	<dubbo:reference id="erpEmployProductService" interface="com.ycmm.business.user.erp.ErpEmployProductService"
-					 version="1.0" check="false" retries="0"  />
-    <!-- 短信模块   push模块 -->
-    <dubbo:reference id="smsBlackListService" interface="com.ycmm.business.sms.service.SmsBlackListService"
-                     version="1.0" check="false" retries="0"/>
-    <dubbo:reference id="smsService" interface="com.ycmm.business.sms.service.SmsService"
-                     version="1.0" check="false" retries="0"/>
-    <dubbo:reference id="pushService" interface="com.ycmm.business.push.service.PushService"
-                     version="1.0" check="false" retries="0"/>
-    <dubbo:reference id="filesService" interface="com.ycmm.business.files.service.FilesService"
-                     version="1.0" check="false" retries="0"/>
-    <dubbo:reference id="locationService" interface="com.ycmm.business.location.service.LocationService"
-                     version="1.0" check="false" retries="0"/>
-    <dubbo:reference id="versionService" interface="com.ycmm.business.version.service.VersionService"
-                     version="1.0" check="false" retries="0"/>
-    <dubbo:reference id="enumService" interface="com.ycmm.business.location.service.EnumService"
-                     version="1.0" check="false" retries="0"/>
-    <dubbo:reference id="herbBannerService" interface="com.ycmm.business.herbanner.service.HerbBannerService"
-                     version="1.0" check="false" retries="0"/>
-    <dubbo:reference id="weiXinService" interface="com.ycmm.business.weixin.service.WeiXinService"
-                     version="1.0" check="false" retries="0">
-        <dubbo:method name="sendCompanyWeiXinMsg" async="true" return="false"></dubbo:method>
-    </dubbo:reference>
-    <dubbo:reference id="rtxNotifyService" interface="com.ycmm.business.rtx.service.RtxNotifyService"
-                     version="1.0" check="false" retries="0"/>
-    <dubbo:reference id="notificationService" interface="com.ycmm.business.notification.service.NotificationService"
-                     version="1.0" check="false" retries="0"/>
-
-    <!-- 检索模块 -->
-    <dubbo:reference id="searchKeywordService" interface="com.ycmm.business.search.service.SearchKeywordService"
-                     version="1.0" check="false" retries="0"/>
-
-    <!-- 意向模块 -->
-    <dubbo:reference id="intentionService" interface="com.ycmm.business.intention.service.IntentionService"
-                     version="1.0" check="false" retries="0"/>
-    <dubbo:reference id="breedService" interface="com.ycmm.business.breed.service.BreedService"
-                     version="1.0" check="false" retries="0"/>
-    <dubbo:reference id="intentionOfferService" interface="com.ycmm.business.intention.service.IntentionOfferService"
-                     version="1.0" check="false" retries="0"/>
-    <dubbo:reference id="cmsIntentionService" interface="com.ycmm.business.intention.service.CmsIntentionService"
-                     version="1.0" check="false" retries="0"/>
-    <dubbo:reference id="cartService" interface="com.ycmm.business.cart.service.CartService"
-                     version="1.0" check="false" retries="0"/>
-    <dubbo:reference id="intentionPushService" interface="com.ycmm.business.intention.service.IntentionPushService"
-                     version="1.0" check="false" retries="0"/>
-
-
-	<!--erp相关服务-->
-    <dubbo:reference id="erpIntentionOfferService" interface="com.ycmm.business.intention.erp.ErpIntentionOfferService"
-                version="1.0" check="false" retries="0"  />
-    <dubbo:reference id="eventTrackingService" interface="com.ycmm.business.tracking.service.EventTrackingService"
-                version="1.0" check="false" retries="0"  />
-    <dubbo:reference id="erpIndentService" interface="com.ycmm.business.indent.erp.ErpIndentService"
-                version="1.0" check="false" retries="0"  />
-    <dubbo:reference id="erpIntentionService" interface="com.ycmm.business.intention.erp.ErpIntentionService"
-                  version="1.0" check="false" retries="0"  />        
-    <dubbo:reference id="erpSampleLogisticsService" interface="com.ycmm.business.intention.erp.ErpSampleLogisticsService"
-                  version="1.0" check="false" retries="0"  />        
-    <dubbo:reference id="erpOfferSampleService" interface="com.ycmm.business.intention.erp.ErpOfferSampleService"
-                  version="1.0" check="false" retries="0"  />        
-    <dubbo:reference id="erpBusinessTrackingService" interface="com.ycmm.business.intention.erp.ErpBusinessTrackingService"
-                  version="1.0" check="false" retries="0"  />        
-	
-	<!-- 订单模块 -->
-	<dubbo:reference id="orderService" interface="com.ycmm.business.order.service.OrderService" 
-				version="1.0" check="false" retries="0"  />
-	<dubbo:reference id="orderNotifyService" interface="com.ycmm.business.order.service.OrderNotifyService" 
-				version="1.0" check="false" retries="0"  />
-	<dubbo:reference id="tradeNewService" interface="com.ycmm.business.order.service.TradeNewService" 
-				version="1.0" check="false" retries="0"  />
-	<dubbo:reference id="afterSalesService" interface="com.ycmm.business.order.service.AfterSalesService" 
-				version="1.0" check="false" retries="0"  />
-	<dubbo:reference id="erpOrderLinkService" interface="com.ycmm.business.order.erp.ErpOrderLinkService" 
-				version="1.0" check="false" retries="0"  />
-	<dubbo:reference id="erpOrderService" interface="com.ycmm.business.order.erp.ErpOrderService" 
-				version="1.0" check="false" retries="0"  />
-	<dubbo:reference id="erpOrderLjlPayService" interface="com.ycmm.business.order.erp.ErpOrderLjlPayService"
-				version="1.0" check="false" retries="0"  />
-				
-				
-	<!-- 支付模块 -->
-	<dubbo:reference id="payNotifyService" interface="com.ycmm.business.pay.service.PayNotifyService" 
-				version="1.0" check="false" retries="0"  />
-	<dubbo:reference id="payRecordService" interface="com.ycmm.business.pay.service.PayRecordService" 
-				version="1.0" check="false" retries="0"  />
-	<dubbo:reference id="payService" interface="com.ycmm.business.pay.service.PayService" 
-				version="1.0" check="false" retries="0"  />
-	<dubbo:reference id="moneyService" interface="com.ycmm.business.money.service.MoneyService" 
-				version="1.0" check="false" retries="0"  />
-	<dubbo:reference id="moneyNotifyService" interface="com.ycmm.business.money.service.MoneyNotifyService" 
-				version="1.0" check="false" retries="0"  />
-	<dubbo:reference id="bankCardService" interface="com.ycmm.business.money.service.BankCardService" 
-				version="1.0" check="false" retries="0"  />
-	
-	<!-- 活动模块 -->	
-	<dubbo:reference id="activityService" interface="com.ycmm.business.activity.service.ActivityService" 
-				version="1.0" check="false" retries="0"  />
-	
-	<!-- 物流仓储模块 -->	
-	<dubbo:reference id="logisticsService" interface="com.ycmm.business.logistics.service.LogisticsService" 
-				version="1.0" check="false" retries="0"  />
-	
-	<!-- 国际化模块 -->	
-	<dubbo:reference id="i18nService" interface="com.ycmm.business.i18n.service.I18nService" 
-				version="1.0" check="false" retries="0"  />
-	<!-- 客服数据模块 -->	
-	<dubbo:reference id="dataService" interface="com.ycmm.business.data.service.DataService" 
-				version="1.0" check="false" retries="0"  />
-
-	<!-- WMS模块 -->
-	<dubbo:reference id="wmsCustomerService" interface="com.ycmm.wms.service.WmsCustomerService"
-				version="1.0" check="false" retries="0"  />
-	<dubbo:reference id="wmsDepotService" interface="com.ycmm.wms.service.WmsDepotService"
-				version="1.0" check="false" retries="0"  />
-	<dubbo:reference id="wmsStockCountService" interface="com.ycmm.wms.service.WmsStockCountService"
-				version="1.0" check="false" retries="0"  />
-	<dubbo:reference id="wmsStockInService" interface="com.ycmm.wms.service.WmsStockInService"
-				version="1.0" check="false" retries="0"  />
-	<dubbo:reference id="wmsStockMoveItemService" interface="com.ycmm.wms.service.WmsStockMoveItemService"
-				version="1.0" check="false" retries="0"  />
-	<dubbo:reference id="wmsStockMoveService" interface="com.ycmm.wms.service.WmsStockMoveService"
-				version="1.0" check="false" retries="0"  />
-	<dubbo:reference id="wmsStockService" interface="com.ycmm.wms.service.WmsStockService"
-				version="1.0" check="false" retries="0"  />
-	<dubbo:reference id="wmsStockTransferService" interface="com.ycmm.wms.service.WmsStockTransferService"
-				version="1.0" check="false" retries="0"  />
-	<dubbo:reference id="wmsStockOutService" interface="com.ycmm.wms.service.WmsStockOutService"
-				version="1.0" check="false" retries="0"  />
-
-
+	<!-- 服务提供者暴露服务配置     服务版本，与服务提供者的版本一致 | 服务方法调用超时时间(毫秒)    -->
+	<!--<dubbo:service ref="pdfGeneratesServiceImpl" interface="com.ycmm.gen.service.PdfGeneratesService" version="1.0"
+                   timeout="30000"/>-->
+	<!--引用-->
+	<dubbo:reference id="cacheService" interface="com.kuaidilaiye.server.universal.service.CacheService"
+					 version="1.0" check="false" retries="0"/>
+	<dubbo:reference id="shareService" interface="com.kuaidilaiye.server.universal.service.ShareService"
+					 version="1.0" check="false" retries="0"/>
+	<dubbo:reference id="userService" interface="com.kuaidilaiye.server.user.service.UserService"
+					 version="1.0" check="false" retries="0"/>
+	<dubbo:reference id="employeeService" interface="com.kuaidilaiye.server.user.service.EmployeeService"
+					 version="1.0" check="false" retries="0"/>
+	<dubbo:reference id="moneyService" interface="com.kuaidilaiye.server.pay.service.MoneyService"
+					 version="1.0" check="false" retries="0"/>
+	<dubbo:reference id="smsService" interface="com.kuaidilaiye.server.sms.service.SmsService"
+					 version="1.0" check="false" retries="0"/>
+	<dubbo:reference id="payService" interface="com.kuaidilaiye.server.pay.service.PayService"
+					 version="1.0" check="false" retries="0"/>
 </beans>

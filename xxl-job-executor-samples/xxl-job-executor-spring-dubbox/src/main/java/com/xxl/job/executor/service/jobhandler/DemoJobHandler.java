@@ -4,8 +4,6 @@ import com.xxl.job.core.biz.model.ReturnT;
 import com.xxl.job.core.handler.IJobHandler;
 import com.xxl.job.core.handler.annotation.JobHander;
 import com.xxl.job.core.log.XxlJobLogger;
-import com.ycmm.base.bean.BizParamBean;
-import com.ycmm.business.intention.erp.ErpIntentionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -26,13 +24,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class DemoJobHandler extends IJobHandler {
 
-	@Autowired
-	ErpIntentionService erpIntentionService;
 
 	@Override
 	public ReturnT<String> execute(String... params) throws Exception {
 		XxlJobLogger.log("测试服务调用");
-		erpIntentionService.queryIntentionById(new BizParamBean());
 		return ReturnT.SUCCESS;
 	}
 	
