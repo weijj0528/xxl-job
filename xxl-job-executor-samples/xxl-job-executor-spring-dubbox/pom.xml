@@ -1,0 +1,161 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.xuxueli</groupId>
+		<artifactId>xxl-job-executor-samples</artifactId>
+		<version>1.9.0-SNAPSHOT</version>
+	</parent>
+	<artifactId>xxl-job-executor-spring-dubbox</artifactId>
+	<packaging>war</packaging>
+
+	<name>${project.artifactId}</name>
+	<description>Executor project for spring boot.</description>
+	<url>http://www.xuxueli.com/</url>
+
+	<!-- 变量 -->
+	<properties>
+		<!--测试环境 -->
+		<env>snapshot</env>
+		<!--正式环境 -->
+		<!-- <env>release</env> -->
+		<pack.sort>7</pack.sort>
+		<javase.version>1.8</javase.version>
+		<maven.compiler.version>3.6.1</maven.compiler.version>
+		<maven.source.version>3.0.1</maven.source.version>
+		<maven.dependency.version>3.0.0</maven.dependency.version>
+		<maven.jar.version>3.0.2</maven.jar.version>
+		<maven.version.range>[3.0,)</maven.version.range>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<repositories>
+		<repository>
+			<id>maven3</id>
+			<name>maven3</name>
+			<url>http://192.168.1.131:8081/repository/maven-releases/</url>
+		</repository>
+		<repository>
+			<id>maven4</id>
+			<name>maven4</name>
+			<url>https://artifacts.alfresco.com/nexus/content/repositories/public/</url>
+		</repository>
+	</repositories>
+
+	<dependencies>
+		<!-- spring-webmvc -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<!-- slf4j -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${slf4j-api.version}</version>
+		</dependency>
+		
+		<!-- xxl-job-core -->
+		<dependency>
+			<groupId>com.xuxueli</groupId>
+			<artifactId>xxl-job-core</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+
+		<!--WMS -->
+		<dependency>
+			<groupId>com.ycmm</groupId>
+			<classifier>dubbo</classifier>
+			<artifactId>biz-wms</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<!--客服 数据模块 -->
+		<dependency>
+			<groupId>com.ycmm</groupId>
+			<classifier>dubbo</classifier>
+			<artifactId>biz-data</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<!--国外 国际化模块 -->
+		<dependency>
+			<groupId>com.ycmm</groupId>
+			<classifier>dubbo</classifier>
+			<artifactId>biz-abroad</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<!-- 支付模块 -->
+		<dependency>
+			<groupId>com.ycmm</groupId>
+			<classifier>dubbo</classifier>
+			<artifactId>biz-pay</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<!-- 订单模块 -->
+		<dependency>
+			<groupId>com.ycmm</groupId>
+			<classifier>dubbo</classifier>
+			<artifactId>biz-order</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<!-- 意向资源模块 -->
+		<dependency>
+			<groupId>com.ycmm</groupId>
+			<classifier>dubbo</classifier>
+			<artifactId>biz-intention</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<!-- 搜索 检索 分词 -->
+		<dependency>
+			<groupId>com.ycmm</groupId>
+			<classifier>dubbo</classifier>
+			<artifactId>biz-search</artifactId>
+			<version>1.0</version>
+		</dependency>
+
+		<!-- 短信发送 push -->
+		<dependency>
+			<groupId>com.ycmm</groupId>
+			<classifier>dubbo</classifier>
+			<artifactId>biz-push</artifactId>
+			<version>1.0</version>
+		</dependency>
+
+		<!-- 业务模块 用户模块 jar -->
+		<dependency>
+			<groupId>com.ycmm</groupId>
+			<classifier>dubbo</classifier>
+			<artifactId>biz-user</artifactId>
+			<version>1.0</version>
+		</dependency>
+
+		<!-- 平安支付 -->
+		<dependency>
+			<groupId>emp</groupId>
+			<artifactId>emp</artifactId>
+			<version>1.0</version>
+		</dependency>
+
+		<!-- 平安支付 -->
+		<dependency>
+			<groupId>payclient</groupId>
+			<artifactId>payclient</artifactId>
+			<version>1.0</version>
+		</dependency>
+
+		<!-- 前置基础 bean -->
+		<dependency>
+			<groupId>com.ycmm</groupId>
+			<artifactId>front-base</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<!-- 蓝金灵JAR -->
+		<dependency>
+			<groupId>com.xiduoduo</groupId>
+			<artifactId>Ljlpay</artifactId>
+			<version>${env}</version>
+		</dependency>
+	</dependencies>
+
+</project>
